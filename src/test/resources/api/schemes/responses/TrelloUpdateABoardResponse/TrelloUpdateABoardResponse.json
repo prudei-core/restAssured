@@ -1,0 +1,53 @@
+{
+  "id": "61b79425d607be2e922fca92",
+  "name": "new name",
+  "desc": "something",
+  "descData": {
+    "emoji": {}
+  },
+  "closed": false,
+  "idOrganization": "6195543a74bc186aea366c82",
+  "idEnterprise": null,
+  "pinned": false,
+  "url": "https://trello.com/b/k8NzfbCm/new-name",
+  "shortUrl": "https://trello.com/b/k8NzfbCm",
+  "prefs": {
+    "permissionLevel": "private",
+    "hideVotes": false,
+    "voting": "disabled",
+    "comments": "members",
+    "invitations": "members",
+    "selfJoin": true,
+    "cardCovers": true,
+    "isTemplate": false,
+    "cardAging": "regular",
+    "calendarFeedEnabled": false,
+    "isPluginHeaderShortcutsEnabled": false,
+    "enabledPluginBoardButtons": [],
+    "background": "blue",
+    "backgroundImage": null,
+    "backgroundImageScaled": null,
+    "backgroundTile": false,
+    "backgroundBrightness": "dark",
+    "backgroundColor": "#0079BF",
+    "backgroundBottomColor": "#0079BF",
+    "backgroundTopColor": "#0079BF",
+    "canBePublic": true,
+    "canBeEnterprise": true,
+    "canBeOrg": true,
+    "canBePrivate": true,
+    "canInvite": true
+  },
+  "labelNames": {
+    "green": "",
+    "yellow": "",
+    "orange": "",
+    "red": "",
+    "purple": "",
+    "blue": "",
+    "sky": "",
+    "lime": "",
+    "pink": "",
+    "black": ""
+  }
+}

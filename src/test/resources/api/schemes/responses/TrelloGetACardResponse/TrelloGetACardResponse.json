@@ -1,0 +1,72 @@
+{
+  "id": "61b764ab2302230d2b2986af",
+  "checkItemStates": [],
+  "closed": false,
+  "dateLastActivity": "2021-12-13T15:49:28.000Z",
+  "desc": "",
+  "descData": {
+    "emoji": {}
+  },
+  "dueReminder": null,
+  "idBoard": "61964e18580104142e00bac6",
+  "idList": "61b379942043025f1714c5e9",
+  "idMembersVoted": [],
+  "idShort": 16,
+  "idAttachmentCover": null,
+  "idLabels": [
+    "61964e192dd3d7ffdbab1eb2"
+  ],
+  "manualCoverAttachment": false,
+  "name": "PCI",
+  "pos": 16384,
+  "shortLink": "6MvTcg0H",
+  "isTemplate": false,
+  "cardRole": null,
+  "dueComplete": false,
+  "due": null,
+  "email": null,
+  "shortUrl": "https://trello.com/c/6MvTcg0H",
+  "start": null,
+  "url": "https://trello.com/c/6MvTcg0H/16-pci",
+  "cover": {
+    "idAttachment": null,
+    "color": null,
+    "idUploadedBackground": null,
+    "size": "normal",
+    "brightness": "dark",
+    "idPlugin": null
+  },
+  "idMembers": [],
+  "idChecklists": [],
+  "badges": {
+    "attachmentsByType": {
+      "trello": {
+        "board": 0,
+        "card": 0
+      }
+    },
+    "location": false,
+    "votes": 0,
+    "viewingMemberVoted": false,
+    "subscribed": false,
+    "fogbugz": "",
+    "checkItems": 0,
+    "checkItemsChecked": 0,
+    "checkItemsEarliestDue": null,
+    "comments": 0,
+    "attachments": 0,
+    "description": false,
+    "due": null,
+    "dueComplete": false,
+    "start": null
+  },
+  "subscribed": false,
+  "labels": [
+    {
+      "id": "61964e192dd3d7ffdbab1eb2",
+      "idBoard": "61964e18580104142e00bac6",
+      "name": "",
+      "color": "red"
+    }
+  ]
+}
