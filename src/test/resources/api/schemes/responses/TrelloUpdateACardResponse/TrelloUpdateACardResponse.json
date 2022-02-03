@@ -1,0 +1,63 @@
+{
+    "id": "61f983ff5b236e8a9404b81b",
+    "checkItemStates": [],
+    "closed": false,
+    "dateLastActivity": "2022-02-01T19:04:25.437Z",
+    "desc": "",
+    "descData": {
+        "emoji": {}
+    },
+    "dueReminder": null,
+    "idBoard": "61964e18580104142e00bac6",
+    "idList": "61f982046f620049ccef6ace",
+    "idMembersVoted": [],
+    "idShort": 23,
+    "idAttachmentCover": null,
+    "idLabels": [],
+    "manualCoverAttachment": false,
+    "name": "NEWNABE",
+    "pos": 16384,
+    "shortLink": "Jvi4xty0",
+    "isTemplate": false,
+    "cardRole": null,
+    "dueComplete": false,
+    "due": null,
+    "email": null,
+    "labels": [],
+    "shortUrl": "https://trello.com/c/Jvi4xty0",
+    "start": null,
+    "url": "https://trello.com/c/Jvi4xty0/23-newnabe",
+    "cover": {
+        "idAttachment": null,
+        "color": null,
+        "idUploadedBackground": null,
+        "size": "normal",
+        "brightness": "dark",
+        "idPlugin": null
+    },
+    "idMembers": [],
+    "idChecklists": [],
+    "badges": {
+        "attachmentsByType": {
+            "trello": {
+                "board": 0,
+                "card": 0
+            }
+        },
+        "location": false,
+        "votes": 0,
+        "viewingMemberVoted": false,
+        "subscribed": false,
+        "fogbugz": "",
+        "checkItems": 0,
+        "checkItemsChecked": 0,
+        "checkItemsEarliestDue": null,
+        "comments": 0,
+        "attachments": 0,
+        "description": false,
+        "due": null,
+        "dueComplete": false,
+        "start": null
+    },
+    "subscribed": false
+}
