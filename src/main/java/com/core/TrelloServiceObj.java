@@ -17,7 +17,7 @@ import static com.constants.ParamsName.KEY;
 import static com.constants.ParamsName.TOKEN;
 import static com.core.TrelloServiceObj.ApiRequestBuilder.requestSpecification;
 import static com.epam.jdi.light.settings.JDISettings.COMMON;
-import static com.epam.jdi.tools.PropertyReader.getProperties;
+import static com.jdiai.tools.PropertyReader.getProperties;
 import static org.hamcrest.Matchers.lessThan;
 
 public class TrelloServiceObj {
