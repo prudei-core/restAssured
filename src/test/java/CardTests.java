@@ -1,25 +1,46 @@
 import com.dto.responses.TrelloCreateALabelOnACard.TrelloCreateALabelOnACard;
+import com.dto.responses.TrelloCreateANewCardResponse.TrelloCreateANewCardResponse;
 import com.dto.responses.TrelloCreateCheckLlistOnACardResponse.TrelloCreateCheckLlistOnACardResponse;
-import com.dto.responses.TrelloDeleteCardResponse.TrelloDeleteCardResponse;
+import com.dto.responses.TrelloCreateListOnDeskResponse.TrelloCreateListOnDeskResponse;
 import com.dto.responses.TrelloUpdateACardResponse.TrelloUpdateACardResponse;
 import com.dto.responses.TrelloUpdateFieldOnAChecklistResponse.TrelloUpdateFieldOnAChecklistResponse;
+import com.github.javafaker.Faker;
 import io.qameta.allure.Description;
-import io.restassured.http.Method;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.core.TrelloServiceObj.ApiRequestBuilder.goodResponseSpecification;
-import static com.core.TrelloServiceObj.requestBuilder;
-import static java.lang.String.format;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static com.api.TrelloApi.*;
 
-public class CardTests implements CardTestInit {
+public class CardTests {
+    Faker random = new Faker();
 
     public static String idOfCard;
     public static String idOfCheckList;
+
+    @BeforeMethod(alwaysRun = true)
+    void beforeMethodTestInit() {
+        String listName = random.name().name();
+        String cardName = random.name().name();
+
+        Map<String, String> listParams = new HashMap<>();
+        Map<String, String> cardParams = new HashMap<>();
+        listParams.put("name", listName);
+        cardParams.put("name", cardName);
+
+        TrelloCreateListOnDeskResponse response = createList(listParams);
+        Assert.assertEquals(response.name, listName);
+        ListTests.idOfList = response.id;
+
+        cardParams.put("idList", response.id);
+        TrelloCreateANewCardResponse response2 = createCard(cardParams);
+        Assert.assertEquals(response2.name, cardName);
+        CardTests.idOfCard = response2.id;
+    }
 
     @Test
     @Description("Create a new card")
@@ -32,13 +53,8 @@ public class CardTests implements CardTestInit {
         String name = random.name().name();
         Map<String, String> params = new HashMap<>();
         params.put("name", name);
-        TrelloUpdateACardResponse response = requestBuilder()
-                .setParams(params)
-                .setMethod(Method.PUT)
-                .buildRequest()
-                .sendRequest(format("%s/%s", ListTestsInit.CARDS, idOfCard))
-                .as(TrelloUpdateACardResponse.class);
-        assertThat(response.name, equalTo(name));
+        TrelloUpdateACardResponse response = updateCard(params, idOfCard);
+        Assert.assertEquals(response.name, name);
     }
 
     @Test
@@ -47,13 +63,8 @@ public class CardTests implements CardTestInit {
         String desc = random.lorem().paragraph();
         Map<String, String> params = new HashMap<>();
         params.put("desc", desc);
-        TrelloUpdateACardResponse response = requestBuilder()
-                .setParams(params)
-                .setMethod(Method.PUT)
-                .buildRequest()
-                .sendRequest(format("%s/%s", ListTestsInit.CARDS, idOfCard))
-                .as(TrelloUpdateACardResponse.class);
-        assertThat(response.desc, equalTo(desc));
+        TrelloUpdateACardResponse response = updateCard(params, idOfCard);
+        Assert.assertEquals(response.desc, desc);
     }
 
     @Test
@@ -62,13 +73,8 @@ public class CardTests implements CardTestInit {
         String color = "red";
         Map<String, String> params = new HashMap<>();
         params.put("color", color);
-        TrelloCreateALabelOnACard response = requestBuilder()
-                .setParams(params)
-                .setMethod(Method.POST)
-                .buildRequest()
-                .sendRequest(format("%s/%s/%s", ListTests.CARDS, idOfCard, ListTests.LABELS))
-                .as(TrelloCreateALabelOnACard.class);
-        assertThat(response.color, equalTo(color));
+        TrelloCreateALabelOnACard response = createLabelForCard(params, idOfCard);
+        Assert.assertEquals(response.color, color);
     }
 
     @Test
@@ -78,17 +84,10 @@ public class CardTests implements CardTestInit {
         Map<String, String> params = new HashMap<>();
         params.put("name", name);
 
-        TrelloCreateCheckLlistOnACardResponse response = requestBuilder()
-                .setParams(params)
-                .setMethod(Method.POST)
-                .buildRequest()
-                .sendRequest(format("%s/%s/%s", ListTestsInit.CARDS, idOfCard, ListTestsInit.CHECKLISTS))
-                .then().assertThat()
-                .spec(goodResponseSpecification())
-                .extract().as(TrelloCreateCheckLlistOnACardResponse.class);
+        TrelloCreateCheckLlistOnACardResponse response = createCheckList(params, idOfCard);
 
         idOfCheckList = response.id;
-        assertThat(response.name, equalTo(name));
+        Assert.assertEquals(response.name, name);
     }
 
     @Test
@@ -99,29 +98,23 @@ public class CardTests implements CardTestInit {
         params.put("name", title);
 
         createAChecklist();
-        TrelloUpdateFieldOnAChecklistResponse response = requestBuilder()
-                .setParams(params)
-                .setMethod(Method.POST)
-                .buildRequest()
-                .sendRequest(format("%s/%s/%s", ListTestsInit.CHECKLISTS, idOfCheckList, ListTestsInit.CHECKITEMS))
-                .then().assertThat()
-                .spec(goodResponseSpecification())
-                .extract().as(TrelloUpdateFieldOnAChecklistResponse.class);
+        TrelloUpdateFieldOnAChecklistResponse response = updateFieldOnCheckList(params, idOfCheckList);
 
-        assertThat(response.state, equalTo("incomplete"));
-        assertThat(response.name, equalTo(title));
+        Assert.assertEquals(response.state, "incomplete");
+        Assert.assertEquals(response.name, title);
     }
 
     @Test
     @Description("Delete a card")
     public void deleteACard() {
-        TrelloDeleteCardResponse response = requestBuilder()
-                .setMethod(Method.DELETE)
-                .buildRequest()
-                .sendRequest(format("%s/%s", ListTestsInit.CARDS, idOfCard))
-                .then().assertThat()
-                .spec(goodResponseSpecification())
-                .extract().as(TrelloDeleteCardResponse.class);
+        deleteCard(idOfCard);
+    }
+
+    @AfterMethod(alwaysRun = true)
+    void afterMethodTestsInit() {
+        Map<String, String> params = new HashMap<>();
+        params.put("value", "true");
+        updateList(params, ListTests.idOfList);
     }
 
 }
