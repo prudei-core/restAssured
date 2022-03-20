@@ -1,4 +1,3 @@
-import com.api.TrelloApi;
 import com.dto.responses.TrelloCreateABoardResponse.TrelloCreateABoardResponse;
 import com.dto.responses.TrelloUpdateABoardResponse.TrelloUpdateABoardResponse;
 import com.github.javafaker.Faker;
@@ -11,28 +10,27 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.api.TrelloApi.createBoard;
-import static com.api.TrelloApi.deleteBoard;
+import static com.api.TrelloBoardApi.*;
 
 public class BoardTests {
     public static String idOfBoard;
     public Faker random = new Faker();
+    TrelloCreateABoardResponse response;
+    String name;
 
     @BeforeMethod(alwaysRun = true)
     void beforeMethodTestInit() {
-        String name = random.name().name();
+        name = random.name().name();
         Map<String, String> params = new HashMap<>();
         params.put("name", name);
-
-        TrelloCreateABoardResponse response = createBoard(params);
-
+        response = createBoard(params);
         idOfBoard = response.id;
-        Assert.assertEquals(response.name, name);
     }
 
     @Test
     @Description("Crate a new board")
     public void createANewBoard() {
+        Assert.assertEquals(response.name, name);
     }
 
     @Test
@@ -44,7 +42,7 @@ public class BoardTests {
         params.put("name", name);
         params.put("desc", lorem);
 
-        TrelloUpdateABoardResponse response = TrelloApi.updateBoard(params, idOfBoard);
+        TrelloUpdateABoardResponse response = updateBoard(params, idOfBoard);
 
         Assert.assertEquals(response.desc, lorem);
     }

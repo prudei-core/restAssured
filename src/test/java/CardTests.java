@@ -14,10 +14,15 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.api.TrelloApi.*;
+import static com.api.TrelloCardApi.*;
+import static com.api.TrelloListApi.createList;
+import static com.api.TrelloListApi.updateList;
+
 
 public class CardTests {
     Faker random = new Faker();
+    TrelloCreateANewCardResponse response2;
+    String cardName;
 
     public static String idOfCard;
     public static String idOfCheckList;
@@ -25,26 +30,23 @@ public class CardTests {
     @BeforeMethod(alwaysRun = true)
     void beforeMethodTestInit() {
         String listName = random.name().name();
-        String cardName = random.name().name();
-
+        cardName = random.name().name();
         Map<String, String> listParams = new HashMap<>();
         Map<String, String> cardParams = new HashMap<>();
         listParams.put("name", listName);
         cardParams.put("name", cardName);
 
         TrelloCreateListOnDeskResponse response = createList(listParams);
-        Assert.assertEquals(response.name, listName);
         ListTests.idOfList = response.id;
-
         cardParams.put("idList", response.id);
-        TrelloCreateANewCardResponse response2 = createCard(cardParams);
-        Assert.assertEquals(response2.name, cardName);
+        response2 = createCard(cardParams);
         CardTests.idOfCard = response2.id;
     }
 
     @Test
     @Description("Create a new card")
     public void createACard() {
+        Assert.assertEquals(response2.name, cardName);
     }
 
     @Test
