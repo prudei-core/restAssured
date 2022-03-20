@@ -10,26 +10,29 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.api.TrelloApi.createList;
-import static com.api.TrelloApi.updateList;
+import static com.api.TrelloListApi.createList;
+import static com.api.TrelloListApi.updateList;
 
 public class ListTests {
     public static String idOfList;
     Faker random = new Faker();
+    TrelloCreateListOnDeskResponse response;
+    String name;
 
     @BeforeMethod(alwaysRun = true)
     void beforeMethodTestInit() {
-        String name = random.name().name();
+        name = random.name().name();
         Map<String, String> params = new HashMap<>();
         params.put("name", name);
-        TrelloCreateListOnDeskResponse response = createList(params);
-        Assert.assertEquals(response.name, name);
+
+        response = createList(params);
         ListTests.idOfList = response.id;
     }
 
     @Test
     @Description("Create a new list")
     public void createNewList() {
+        Assert.assertEquals(response.name, name);
     }
 
     @Test
